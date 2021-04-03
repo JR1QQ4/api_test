@@ -2,40 +2,70 @@
 # -*- coding:utf-8 -*-
 import requests
 
+from demo_a.api.base_api import BaseApi
+from demo_a.api.util import Util
 
-class User:
+
+class User(BaseApi):
+    def __init__(self):
+        self.token = Util().get_token()
+
     def create(self, user_id, name, mobile):
         # 创建成员
         data = {
-            "userid": user_id,
-            "name": name,
-            "department": [1],
-            "mobile": mobile
+            "method": "post",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/user/create",
+            "params": {
+                "debug": "1",
+                "access_token": self.token
+            },
+            "json": {
+                "userid": user_id,
+                "name": name,
+                "department": [1],
+                "mobile": mobile
+            }
         }
-        r = requests.post(f"https://qyapi.weixin.qq.com/cgi-bin/user/create?debug=1&access_token={self._access_token}",
-                          json=data)
-        return r.json()
+        return self.send(data)
 
-    def del_user(self, user_id):
+    def delete(self, user_id):
         # 删除成员
-        r = requests.get(f"https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={self._access_token}"
-                         f"&userid={user_id}")
-        return r.json()
+        data = {
+            "method": "get",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/user/delete",
+            "params": {
+                "userid": user_id,
+                "access_token": self.token
+            }
+        }
+        return self.send(data)
 
     def update(self, user_id, name, mobile):
         # 更新成员
         data = {
-            "userid": user_id,
-            "name": name,
-            "department": [1],
-            "mobile": mobile
+            "method": "post",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/user/update",
+            "params": {
+                "debug": "1",
+                "access_token": self.token
+            },
+            "json": {
+                "userid": user_id,
+                "name": name,
+                "department": [1],
+                "mobile": mobile
+            }
         }
-        r = requests.post(f"https://qyapi.weixin.qq.com/cgi-bin/user/update?debug=1&access_token={self._access_token}",
-                          json=data)
-        return r.json()
+        return self.send(data)
 
     def get(self, user_id):
         # 获取成员
-        r = requests.get("https://qyapi.weixin.qq.com/cgi-bin/user/get"
-                         "?access_token=" + self._access_token + "&userid=" + user_id)
-        return r.json()
+        data = {
+            "method": "get",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/user/get",
+            "params": {
+                "userid": user_id,
+                "access_token": self.token
+            }
+        }
+        return self.send(data)
