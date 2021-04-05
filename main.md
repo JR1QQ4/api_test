@@ -197,3 +197,76 @@ validate(
     instance={"name": "Eggs", "price": "Invalid"}, schema=schema,
 )  # <ValidationError: "'Invalid' is not of type 'number'">
 ```
+
+## 框架
+
+### Api 对象
+
+- 架构设计
+    - 多协议支持，http tcp thrift等，需要不同的底层引擎
+    - 保证用例和协议无关，基于接口或者抽象实现；把不变的作为一种抽象，把变的作为一种实现
+- 实现
+    - code方式：输出=业务.功能（输入）
+    - 配置文件方式：yaml格式、json格式
+
+### 架构实现和管理
+
+- 架构的实现
+    - Java + RestAssured + JUnit4/JUnit5/TestNG + Allure2
+    - Python + Requests + PyTest + Allure2 = HttpRunner
+- 架构管理
+    - 使用 package 管理业务模块
+    - 使用 class 管理业务功能
+    - 使用 method 完成业务具体行为
+    - 使用配置文件读取初始配置
+    - 使用集成规划用例执行顺序
+    - 使用 testcase 完成测试用例的落地
+    - 使用数据文件管理用例的数据驱动
+    - 使用 jenkins 完成持续集成
+
+### 基于加密接口的测试用例设计
+
+在得到响应后对响应做解密处理
+1. 如果知道使用的是哪个通用加密算法的话，自行解决
+2. 如果不了解对应的加密算法的话，可以让研发提供加解密的 lib 
+3. 如果既不是通用加密算法、研发也无法提供加解密的 lib 的话，可以让加密方提供远程解析服务，这样算法依然是保密的
+
+### 多环境下的接口测试
+
+在请求之前，对请求的 url 进行替换
+1. 需要二次封装 requests，对请求进行定制化
+2. 将请求的结构体的 url 从一个写死的 ip 地址改为一个（任意的）域名
+3. 使用一个 env 配置文件，存放各个环境的配置信息
+4. 然后将请求结构体中的 url 替换为 env 配置文件中个人选择的 url
+5. 将 env 配置文件使用 yaml 进行管理
+
+### api object
+
+原则
+- 每个公共方法代表接口所提供功能
+- 不要暴露 api 内部细节
+- 不要再接口实现层写断言
+- 每个 method 返回其他的 api object 或者用来断言的信息
+- 不需要每个 api 都进行实现，只要与 case 相关的才进行实现
+
+### 框架封装
+
+- 测试步骤的数据驱动
+    - 使用 yaml 文件对测试步骤进行数据驱动
+    - 在 yaml 文件中实现变量传递，使用 Template 进行模板替换
+- 测试数据的数据驱动
+    - 使用 @pytest.mark.parameterize() 传参
+    - 使用 yaml、JSON、CSV 等等文件管理测试数据
+- 配置的数据驱动
+    - 把配置信息保存在 yaml、JSON 等文件中进行管理
+- 通用测试用例封装
+    - 创建一个 TestBase 类，其他的 case 都继承于 TestBase
+- 通用测试框架构建
+
+
+
+
+
+
+
+
