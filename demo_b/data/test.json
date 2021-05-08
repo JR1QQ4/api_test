@@ -1,0 +1,22 @@
+{
+  "access_token": "是",
+  "userid": "是",
+  "name": "是",
+  "department": "是",
+  "alias": "否",
+  "mobile": "否",
+  "order": "否",
+  "position": "否",
+  "gender": "否",
+  "email": "否",
+  "telephone": "否",
+  "is_leader_in_dept": "否",
+  "avatar_mediaid": "否",
+  "enable": "否",
+  "extattr": "否",
+  "to_invite": "否",
+  "external_profile": "否",
+  "external_position": "否",
+  "address": "否",
+  "main_department": "否"
+}

@@ -1,0 +1,6 @@
+token:
+  method: get
+  params:
+    corpid: ww13ef03a4459fae68
+    corpsecret: t_cw7KxjEKN0tTSnteb26JVv0AgR3hypEhh0pqBwavM
+  url: https://qyapi.weixin.qq.com/cgi-bin/gettoken
