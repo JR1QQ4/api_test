@@ -1,7 +1,10 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+import json
+
 import requests
-from requests.sessions import Session
+
+from demo_b.util.handle_log import HandleLog
 
 
 def get_token(corp_id="ww13ef03a4459fae68", corp_secret="t_cw7KxjEKN0tTSnteb26JVv0AgR3hypEhh0pqBwavM"):
@@ -10,11 +13,33 @@ def get_token(corp_id="ww13ef03a4459fae68", corp_secret="t_cw7KxjEKN0tTSnteb26JV
     return r.json()['access_token']
 
 
+def raise_error():
+    logger = HandleLog()
+
+    def out_wrapper(func):
+        def wrapper(data):
+            try:
+                logger.info("发送 http 请求，调用函数 {}()".format(func.__name__))
+                logger.info("请求参数:" + json.dumps(data))
+                return func(data)
+            except Exception as e:
+                logger.error(str(e))
+
+        return wrapper
+
+    return out_wrapper
+
+
 class HandleHttp:
-    cookies = None
-    headers = None
-    auth = None
-    def http(self, data):
+    _session = None
+
+    def __init__(self):
+        if self._session is None:
+            self._session = requests.Session()
+
+    @staticmethod
+    @raise_error()
+    def send(data: dict):
         """
         发送 http 请求
         :param data:
@@ -22,15 +47,38 @@ class HandleHttp:
             params = None, data = None, headers = None, cookies = None, files = None,
             auth = None, timeout = None, allow_redirects = True, proxies = None,
             hooks = None, stream = None, verify = None, cert = None, json = None
-        :return: 返回请求结果
+        :return: :class:`Response <Response>` object
         """
-        res = requests.request(**data)
-        return
+        return requests.request(**data)
+
+    @staticmethod
+    def post(data: dict):
+        # (url, data=None, json=None, **kwargs)
+        return requests.post(**data)
+
+    @staticmethod
+    def get(data: dict):
+        # (url, params=None, **kwargs)
+        return requests.get(**data)
+
+    def session_send(self, data):
+        # (self, method, url,
+        #             params=None, data=None, headers=None, cookies=None, files=None,
+        #             auth=None, timeout=None, allow_redirects=True, proxies=None,
+        #             hooks=None, stream=None, verify=None, cert=None, json=None)
+        return self._session.request(**data)
+
+    def session_post(self, data):
+        # (self, url, data=None, json=None, **kwargs)
+        return self._session.post(**data)
+
+    def session_get(self, data):
+        # (self, url, **kwargs)
+        return self._session.get(**data)
 
 
 if __name__ == '__main__':
-    hh = HandleHttp()
-    request_data = {
+    get_token = {
         "method": "get",
         "url": "https://qyapi.weixin.qq.com/cgi-bin/gettoken",
         "params": {
@@ -38,7 +86,15 @@ if __name__ == '__main__':
             "corpsecret": "t_cw7KxjEKN0tTSnteb26JVv0AgR3hypEhh0pqBwavM"
         }
     }
-    res = hh.http(request_data)
+    httpbin_get = {
+        "method": "get",
+        "url": "https://httpbin.org/get",
+        "headers": {
+            "content-type": "application/json"
+        }
+    }
+
+    res = HandleHttp.send(httpbin_get)
     print(res.text)
-    print(res.json())
-    print(res.status_code)
+
+

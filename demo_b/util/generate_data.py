@@ -5,6 +5,7 @@ import hashlib
 import string
 import random
 
+
 # def __init__(self):
 #     print([chr(i) for i in range(65, 91)])  # 大写字母
 #     print([chr(i) for i in range(97, 123)])  # 小写字母
@@ -18,6 +19,13 @@ import random
 #     print(string.octdigits)  # 八进制字符串
 #     print(string.punctuation)  # 所有标点字符
 #     print(string.printable)  # 所有可打印的字符的字符串
+
+def gen_phone():
+    head = ["130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "147", "150", "151", "152",
+            "153", "155", "156", "157", "158", "159", "186", "187", "188", "189"]
+    head = random.choice(head)
+    body = ''.join(random.choices(string.digits, k=8))
+    return head + body
 
 
 def gen_str_lower_or_upper(length=1, lower_or_upper=None):
@@ -111,3 +119,5 @@ if __name__ == '__main__':
     #     print("-" * 50)
     #     if test6[0] in string.ascii_lowercase + string.digits:
     #         break
+
+    # print(gen_phone(), type(gen_phone()))
