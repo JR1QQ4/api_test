@@ -34,9 +34,10 @@ class HandleLog:
         self.file_logger.addHandler(fh_error)
 
         self.sh = logging.StreamHandler()
-        self.sh.setLevel(logging.DEBUG)
+        # self.sh.setLevel(logging.DEBUG)
 
     def debug(self, msg: str):
+        self.std_logger.setLevel(logging.DEBUG)
         self.file_logger.debug(msg)
         sh_formatter = logging.Formatter(
             Fore.BLUE + "%(asctime)s, File \"%(filename)s\", line %(lineno)d【%(levelname)s】: %(message)s")
@@ -45,6 +46,7 @@ class HandleLog:
         self.std_logger.debug(msg)
 
     def info(self, msg: str):
+        self.std_logger.setLevel(logging.INFO)
         self.file_logger.info(msg)
         sh_formatter = logging.Formatter(
             Fore.GREEN + "%(asctime)s, File \"%(filename)s\", line %(lineno)d【%(levelname)s】: %(message)s")
@@ -53,6 +55,7 @@ class HandleLog:
         self.std_logger.info(msg)
 
     def warning(self, msg: str):
+        self.std_logger.setLevel(logging.WARNING)
         self.file_logger.warning(msg)
         sh_formatter = logging.Formatter(
             Fore.YELLOW + "%(asctime)s, File \"%(filename)s\", line %(lineno)d【%(levelname)s】: %(message)s")
@@ -61,6 +64,7 @@ class HandleLog:
         self.std_logger.warning(msg)
 
     def error(self, msg: str):
+        self.std_logger.setLevel(logging.ERROR)
         self.file_logger.error(msg)
         sh_formatter = logging.Formatter(
             Fore.RED + "%(asctime)s, File \"%(filename)s\", line %(lineno)d【%(levelname)s】: %(message)s")
@@ -69,6 +73,7 @@ class HandleLog:
         self.std_logger.error(msg)
 
     def critical(self, msg: str):
+        self.std_logger.setLevel(logging.CRITICAL)
         self.file_logger.critical(msg)
         sh_formatter = logging.Formatter(
             Fore.LIGHTRED_EX + "%(asctime)s, File \"%(filename)s\", line %(lineno)d【%(levelname)s】: %(message)s")

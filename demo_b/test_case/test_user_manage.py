@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+import json
 import os
 import random
 
@@ -28,8 +29,10 @@ class TestUserManage:
         elif user_id == "1<length<64":
             r = random.randint(2, 63)
             return gen_str(r, "_-@.")
-        else:
+        elif user_id == "" or user_id == "length>64" or user_id == "#ERROR#":
             return ''
+        else:
+            return user_id
 
     def name_judge(self, name):
         if name == "length=1":
@@ -39,8 +42,10 @@ class TestUserManage:
         elif name == "1<length<64":
             r = random.randint(2, 63)
             return gen_str(r, lower_or_upper=True)
-        else:
+        elif name == "" or name == "length>64" or name == "#ERROR#":
             return ''
+        else:
+            return name
 
     def department_judge(self, department):
         if department == "this<100":
@@ -48,14 +53,18 @@ class TestUserManage:
             return r
         elif department == "this=100":
             return 100
-        else:
+        elif department == "" or department == "this>100" or department == "#ERROR#":
             return 103
+        else:
+            return department
 
     def mobile_judge(self, mobile):
         if mobile == "#MOBILE#":
             return gen_phone()
-        else:
+        elif mobile == "#ERROR#":
             return ''
+        else:
+            return mobile
 
     @pytest.mark.usefixtures('token')
     @pytest.mark.parametrize('case', HandleExcel(wx).get_all_data())
@@ -73,9 +82,13 @@ class TestUserManage:
             "data": case['Params'],
             "json": case['Params']
         }
+        self.logger.info("发送 http 请求： \n\t请求参数: " + json.dumps(data))
         res = self.http.send(data)
-        assert res.status_code == 200
-        self.logger.info(res.json())
+        res_json = res.json()
+        self.logger.info(res_json)
+
+        code = case['Expectation']['errcode']
+        assert res_json['errcode'] == code
 
 
 if __name__ == '__main__':

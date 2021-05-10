@@ -14,16 +14,12 @@ def get_token(corp_id="ww13ef03a4459fae68", corp_secret="t_cw7KxjEKN0tTSnteb26JV
 
 
 def raise_error():
-    logger = HandleLog()
-
     def out_wrapper(func):
         def wrapper(data):
             try:
-                logger.info("发送 http 请求，调用函数 {}()".format(func.__name__))
-                logger.info("请求参数:" + json.dumps(data))
                 return func(data)
             except Exception as e:
-                logger.error(str(e))
+                raise e
 
         return wrapper
 
