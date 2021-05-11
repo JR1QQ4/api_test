@@ -78,8 +78,11 @@ class TestUserManage:
         data = {
             "method": case['Method'],
             "url": case['Url'],
-            "params": case['Params'],
-            "data": case['Params'],
+            "params": {
+              "access_token": params['access_token']
+            },
+            # "params": case['Params'],
+            # "data": case['Params'],
             "json": case['Params']
         }
         self.logger.info("发送 http 请求： \n\t请求参数: " + json.dumps(data))
@@ -88,7 +91,11 @@ class TestUserManage:
         self.logger.info(res_json)
 
         code = case['Expectation']['errcode']
-        assert res_json['errcode'] == code
+        if res_json['errcode'] == code:
+            HandleExcel(self.wx).update(case, "pass")
+        else:
+            HandleExcel(self.wx).update(case, res_json)
+            assert False
 
 
 if __name__ == '__main__':
