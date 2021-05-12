@@ -38,7 +38,10 @@ class HandleExcel:
         except NameError:
             return value
         except Exception:
-            self.convert(str(value))
+            if value is None:
+                return ""
+            else:
+                self.convert(str(value))
 
     def get_all_data(self):
         titles = self.get_title()
@@ -67,15 +70,15 @@ class HandleExcel:
         self._sh.cell(int(data['Id']) + 1, self.titles.index('Actuality') + 1, value=str(value))
         self._wb.save(self._file_path)
 
-    def __del__(self):
-        self._wb.close()
+    # def __del__(self):
+    #     self._wb.close()
 
 
 if __name__ == '__main__':
     from demo_b.util.handle_path import data_dir
     import os
 
-    # exl = os.path.join(data_dir, 'weixin.xlsx')
+    exl = os.path.join(data_dir, 'weixin.xlsx')
     # he = HandleExcel(exl, '读取成员')
     # print(he.get_title())
     # print(he.get_all_data())
@@ -104,22 +107,25 @@ if __name__ == '__main__':
     # except NameError:
     #     print(type(a))
 
-    exl2 = os.path.join(data_dir, 'user.xlsx')
-    he2 = HandleExcel(exl2)
-    all_data = he2.get_all_data()
-    insert_data = []
-    def convert(value):
-        if value is None:
-            return ""
-        return value
-    for item in all_data:
-        item['params'] = str({
-            'access_token': convert(item['access_token']),
-            'userid': convert(item['userid']),
-            'name': convert(item['name']),
-            'department': convert(item['department']),
-            'mobile': convert(item['mobile'])
-        })
-        insert_data.append(item)
-    print(all_data)
-    he2.update_all_data(insert_data)
+    # exl2 = os.path.join(data_dir, 'user.xlsx')
+    # he2 = HandleExcel(exl2)
+    # all_data = he2.get_all_data()
+    # insert_data = []
+    # def convert(value):
+    #     if value is None:
+    #         return ""
+    #     return value
+    # for item in all_data:
+    #     item['params'] = str({
+    #         'access_token': convert(item['access_token']),
+    #         'userid': convert(item['userid']),
+    #         'name': convert(item['name']),
+    #         'department': convert(item['department']),
+    #         'mobile': convert(item['mobile'])
+    #     })
+    #     insert_data.append(item)
+    # print(all_data)
+    # he2.update_all_data(insert_data)
+
+    hexel = HandleExcel(exl, "读取成员")
+    print(hexel.get_all_data())
