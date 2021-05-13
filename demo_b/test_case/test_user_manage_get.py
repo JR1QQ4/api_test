@@ -66,38 +66,6 @@ class TestUserManage:
         else:
             return mobile
 
-    @pytest.mark.skip(reason="标记在函数上，被标记函数不会被执行！！")
-    @pytest.mark.usefixtures('token')
-    # @pytest.mark.parametrize('case', HandleExcel(wx, "创建成员").get_all_data())
-    def test_add_user(self, case, token):
-        params = case['Params']
-        params['access_token'] = token if params['access_token'] == "#ACCESS_TOKEN#" else ''
-        params['userid'] = self.user_id_judge(params['userid'])
-        params['name'] = self.name_judge(params['name'])
-        params['department'] = self.department_judge(params['department'])
-        params['mobile'] = self.mobile_judge(params['mobile'])
-        data = {
-            "method": case['Method'],
-            "url": case['Url'],
-            "params": {
-                "access_token": params['access_token']
-            },
-            # "params": case['Params'],
-            # "data": case['Params'],
-            "json": case['Params']
-        }
-        self.logger.info("发送 http 请求： \n\t请求参数: " + json.dumps(data))
-        res = self.http.send(data)
-        res_json = res.json()
-        self.logger.info(res_json)
-
-        code = case['Expectation']['errcode']
-        if res_json['errcode'] == code:
-            HandleExcel(self.wx).update(case, "pass")
-        else:
-            HandleExcel(self.wx).update(case, res_json)
-            assert False
-
     @pytest.mark.usefixtures('token')
     @pytest.mark.parametrize('case', HandleExcel(wx, "读取成员").get_all_data())
     def test_get_user(self, case, token):
@@ -119,6 +87,12 @@ class TestUserManage:
         res_json = res.json()
         self.logger.info(res_json)
 
+        code = case['Expectation']['errcode']
+        if res_json['errcode'] == code:
+            HandleExcel(self.wx, "读取成员").update(case, "pass")
+        else:
+            HandleExcel(self.wx, "读取成员").update(case, res_json)
+
 
 if __name__ == '__main__':
-    pytest.main(["-sv", "user_manage_test.py"])
+    pytest.main(["-sv", "test_user_manage_get.py"])

@@ -35,13 +35,8 @@ class HandleExcel:
         try:
             value = eval(value)
             return value
-        except NameError:
-            return value
         except Exception:
-            if value is None:
-                return ""
-            else:
-                self.convert(str(value))
+            return ""
 
     def get_all_data(self):
         titles = self.get_title()
@@ -127,5 +122,5 @@ if __name__ == '__main__':
     # print(all_data)
     # he2.update_all_data(insert_data)
 
-    hexel = HandleExcel(exl, "读取成员")
+    hexel = HandleExcel(exl, "创建成员")
     print(hexel.get_all_data())
