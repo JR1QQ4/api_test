@@ -9,3 +9,8 @@
 # test_case：测试用例
 # util：存放工具类和方法
 # pytest.ini文件：pytest的配置文件
+
+# allure 使用
+# pytest test/ --alluredir ./result/
+# pytest test/ --allure_features='购物车功能' --allure_stories='加入购物车'
+# allure generate ./result/ -o ./report/ --clean
