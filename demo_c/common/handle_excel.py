@@ -6,7 +6,8 @@ from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell.cell import Cell
 
-excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
+
+# excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
 
 # 操作 Excel 的 3 个对象：
 #   工作簿（Workbook）
@@ -14,11 +15,11 @@ excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_tes
 #   单元格（Cell）
 
 # 1. 获取 Workbook
-wb: Workbook = load_workbook(excel_path)
-print(wb)  # <openpyxl.workbook.workbook.Workbook object at 0x000001FE39B46348>
+# wb: Workbook = load_workbook(excel_path)
+# print(wb)  # <openpyxl.workbook.workbook.Workbook object at 0x000001FE39B46348>
 # 2. 获取 Sheet
-sh: Worksheet = wb['Cases']  # <Worksheet "Cases">
-print(sh)
+# sh: Worksheet = wb['Cases']  # <Worksheet "Cases">
+# print(sh)
 # 2.1 获取最大行数和最大列数
 # row_num = sh.max_row
 # column_num = sh.max_column
@@ -59,14 +60,48 @@ print(sh)
 #     for cell in item:
 #         temp.append(cell.value)
 #     res = dict(zip(titles, temp))
+#     res['Params'] = eval(res['Params'])
 #     data_lists.append(res)
 # print(data_lists)
 # 3. 获取 Cell
-cell: Cell = sh.cell(row=1, column=1)
-print(cell.value)  # <Cell 'Cases'.A1>
+# cell: Cell = sh.cell(row=1, column=1)
+# print(cell.value)  # <Cell 'Cases'.A1>
 # 3.1 设置 Cell
 # sh.cell(8, 1, 'cell')  # 或者使用 sh.cell(8, 1).value = 'cell'
 # 4. 保存修改
 # wb.save(excel_path)
 # 5. 关闭 workbook
-wb.close()
+# wb.close()
+
+class HandleExcel:
+    def __init__(self, file_path, sheet_name):
+        self.wb: Workbook = load_workbook(file_path)
+        self.sh: Worksheet = self.wb[sheet_name]
+
+    def get_titles(self):
+        titles = []
+        for cell in list(self.sh.rows)[0]:
+            titles.append(cell.value)
+        return titles
+
+    def get_all_cases(self):
+        all_cases = []
+        titles = self.get_titles()
+        for row in list(self.sh.rows)[1:]:
+            values = []
+            for cell in row:
+                values.append(cell.value)
+            res = dict(zip(titles, values))
+            # res['Params'] = eval(res['Params'])
+            all_cases.append(res)
+        return all_cases
+
+    def close(self):
+        self.wb.close()
+
+
+if __name__ == '__main__':
+    excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
+    exl = HandleExcel(excel_path, "Cases")
+    print(exl.get_titles())
+    print(exl.get_all_cases())
