@@ -13,6 +13,8 @@ class HandleYaml:
         return list(self.y.items())
 
 
-file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "my.yaml")
-handle_yaml = HandleYaml(file_path)
-print(handle_yaml.items())
+__file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "configs", "my.yaml")
+handle_yaml = HandleYaml(__file_path)
+
+if __name__ == '__main__':
+    print(handle_yaml.items())

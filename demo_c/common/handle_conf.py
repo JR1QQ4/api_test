@@ -27,8 +27,8 @@ class HandleConfig(ConfigParser):
         self.read(file_path, encoding="utf-8")
 
 
-conf_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "my.ini")
-conf = HandleConfig(conf_path)
+__conf_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "configs", "my.ini")
+conf = HandleConfig(__conf_path)
 
 if __name__ == '__main__':
     print(conf.get('log', "name"))

@@ -1231,7 +1231,7 @@ TestResult = unittest.TestResult
 
 
 class _TestResult(TestResult):
-    # note: _TestResult is a pure representation of results.
+    # note: _TestResult is a pure representation of outputs.
     # It lacks the output and reporting ability compares to unittest._TextTestResult.
     # 增加subtest和通过率
     def __init__(self, verbosity=1):
