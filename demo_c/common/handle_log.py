@@ -1,123 +1,189 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-import logging
+#!/usr/bin/env python
 import os.path
+from copy import copy
+from logging import Formatter
+import logging
+import pprint
 
-from handle_conf import conf
-
-from colorama import Fore
-
-COLORS = {
-    'DEBUG': Fore.BLUE,
-    'INFO': Fore.LIGHTWHITE_EX,
-    'WARNING': Fore.YELLOW,
-    'ERROR': Fore.RED,
-    'CRITICAL': Fore.LIGHTRED_EX
+MAPPING = {
+    'DEBUG': 37,  # white
+    'INFO': 36,  # cyan
+    'WARNING': 33,  # yellow
+    'ERROR': 31,  # red
+    'CRITICAL': 41,  # white on red bg
 }
 
+PREFIX = '\033['
+SUFFIX = '\033[0m'
 
-class ColoredFormatter(logging.Formatter):
-    def __init__(self, msg, is_colored=True):
-        logging.Formatter.__init__(self, msg)
-        self.is_colored = is_colored
+
+class ColoredFormatter(Formatter):
+
+    def __init__(self, pattern):
+        Formatter.__init__(self, pattern)
 
     def format(self, record):
-        if self.is_colored:
-            level_name = record.levelname
-            message = str(record.msg)
-            if level_name in COLORS:
-                level_name_color = COLORS[level_name] + level_name
-                message_color = COLORS[level_name] + message
-                record.levelname = level_name_color
-                record.msg = message_color
-        return logging.Formatter.format(self, record)
+        colored_record = copy(record)
+        levelname = colored_record.levelname
+        seq = MAPPING.get(levelname, 37)  # default white
+        colored_levelname = '{0}{1}m{2}{3}'.format(PREFIX, seq, levelname, SUFFIX)
+        colored_record.levelname = colored_levelname
+        return Formatter.format(self, colored_record)
 
 
-# def get_log(file_path=None):
-#     fmt = Fore.GREEN + "%(asctime)s " + Fore.LIGHTWHITE_EX + "|" + Fore.RESET + " %(levelname)s  " \
-#           + Fore.LIGHTWHITE_EX + "|" + Fore.MAGENTA + " %(filename)s" + Fore.LIGHTWHITE_EX + ":" \
-#           + Fore.MAGENTA + "%(funcName)s" + Fore.LIGHTWHITE_EX + ":" + Fore.MAGENTA \
-#           + "%(lineno)d " + Fore.LIGHTWHITE_EX + "-" + Fore.RESET + " %(message)s"
-#     log_level = logging.DEBUG
-#     color_fmt = ColoredFormatter(fmt)
-#     std_h = logging.StreamHandler()
-#     std_h.setLevel(log_level)
-#     std_h.setFormatter(color_fmt)
-#
-#     log1 = logging.getLogger("my_logger")
-#     log1.setLevel(log_level)
-#     log1.addHandler(std_h)
-#
-#     if file_path:
-#         file_h = logging.FileHandler(file_path)
-#         file_h.setLevel(log_level)
-#         fmt1 = "%(asctime)s | %(levelname)s  | %(module)s:%(funcName)s:%(lineno)d - %(message)s"
-#         color_fmt.is_colored = False
-#         file_fmt = logging.Formatter(fmt1)
-#         file_h.setFormatter(file_fmt)
-#         log1.addHandler(file_h)
-#
-#     return log1
-#
-#
-# if __name__ == '__main__':
-#     logger = get_log("log_test.log")
-#     logger.info(123123)
-#     logger.debug(123123)
-#     logger.error(123123)
-#     logger.warning(123123)
+class ColoredConsoleHandler(logging.StreamHandler):
+    def emit(self, record):
+        # Need to make a actual copy of the record
+        # to prevent altering the message for other loggers
+        # myrecord = copy(record)
+        # levelno = myrecord.levelname
+        # if levelno >= 50:  # CRITICAL / FATAL
+        #     color = '\x1b[41m'  # red
+        # elif levelno >= 40:  # ERROR
+        #     color = '\x1b[31m'  # red
+        # elif levelno >= 30:  # WARNING
+        #     color = '\x1b[33m'  # yellow
+        # elif levelno >= 20:  # INFO
+        #     color = '\x1b[32m'  # green
+        # elif levelno >= 10:  # DEBUG
+        #     color = '\x1b[35m'  # pink
+        # else:  # NOTSET and anything else
+        #     color = '\x1b[0m'  # normal
+        # myrecord.msg = color + str(myrecord.msg) + '\x1b[0m'  # normal
+        # logging.StreamHandler.emit(self, myrecord)
+
+        my_record = copy(record)
+        levelname = my_record.levelname
+        seq = MAPPING.get(levelname, 37)  # default white
+        my_record.msg = '{0}{1}m{2}{3}'.format(PREFIX, seq, str(my_record.msg), SUFFIX)
+        logging.StreamHandler.emit(self, my_record)
 
 
-class ColorFormatter:
-    def __init__(self, fmt):
-        self.fmt = logging.Formatter(fmt)
-        self.fmt.format()
+class HandleLog:
+    def __init__(self, name='my_logger', file=None):
+        self._log = logging.getLogger(name)
 
-
-class MyLogger(logging.Logger):
-    def __init__(self, name, level='INFO', file=None, is_colored=True):
-        super(MyLogger, self).__init__(name, level)
-
-        # 日志格式
-        fmt = '%(asctime)s | %(levelname)s  | %(module)s:%(funcName)s:%(lineno)d - %(message)s'
-        formatter = logging.Formatter(fmt)
-
-        fmt1 = Fore.GREEN + "%(asctime)s " + Fore.LIGHTWHITE_EX + "|" + Fore.RESET + " %(levelname)s  " \
-               + Fore.LIGHTWHITE_EX + "|" + Fore.MAGENTA + " %(filename)s" + Fore.LIGHTWHITE_EX + ":" \
-               + Fore.MAGENTA + "%(funcName)s" + Fore.LIGHTWHITE_EX + ":" + Fore.MAGENTA \
-               + "%(lineno)d " + Fore.LIGHTWHITE_EX + "-" + Fore.RESET + " %(message)s"
-        color_fmt = ColoredFormatter(fmt1, is_colored=True)
-
-        std_h = logging.StreamHandler()
-        std_h.setFormatter(formatter)
-        self.addHandler(std_h)
+        # Add console handler using our custom ColoredFormatter
+        # 重写标准输出流中的处理器 ch = logging.StreamHandler()
+        ch = ColoredConsoleHandler()
+        ch.setLevel(logging.DEBUG)
+        # ch_fmt = "[%(name)s][%(levelname)s]  %(message)s (%(filename)s:%(lineno)d)"
+        ch_fmt = "\033[0;32m%(name)s\033[0m \033[0;37m|\033[0m %(levelname)s  " \
+                 "\033[0;37m|\033[0m \033[0;35m%(filename)s\033[0m" \
+                 "\033[0;37m:\033[0m" \
+                 "\033[0;35m%(funcName)s\033[0m" \
+                 "\033[0;37m:\033[0m" \
+                 "\033[0;35m%(lineno)d\033[0m " \
+                 "\033[0;37m-\033[0m %(message)s"
+        cf = ColoredFormatter(ch_fmt)
+        ch.setFormatter(cf)
+        self._log.addHandler(ch)
 
         if file:
-            file_h = logging.FileHandler(file, encoding='utf-8')
-            file_h.setFormatter(formatter)
-            self.addHandler(file_h)
+            # Add file handler
+            fh = logging.FileHandler(file)
+            fh.setLevel(logging.DEBUG)
+            # fh_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            fh_fmt = '%(asctime)s | %(name)s | %(levelname)s  | %(filename)s:%(funcName)s:%(lineno)d - %(message)s'
+            ff = logging.Formatter(fh_fmt)
+            fh.setFormatter(ff)
+            self._log.addHandler(fh)
+
+        # Set log level
+        self._log.setLevel(logging.DEBUG)
+
+    def get_log(self):
+        return self._log
+
+    def debug(self, msg):
+        self._log.debug(msg)
+
+    def info(self, msg):
+        self._log.info(msg)
+
+    def warning(self, msg):
+        self._log.warning(msg)
+
+    def error(self, msg):
+        self._log.error(msg)
+
+    def critical(self, msg):
+        self._log.critical(msg)
 
 
-def test():
-    logger2 = MyLogger("my_logger1")
-    logger2.info("这是我的第二个日志信息！This is my second log info.")
-    logger2.error("这是我的第二个日志信息！This is my second log info.")
+def __get_log(name='my_logger', file=None):
+    log = logging.getLogger(name)
+
+    ch = ColoredConsoleHandler()
+    ch.setLevel(logging.DEBUG)
+    # ch_fmt = "[%(name)s][%(levelname)s]  %(message)s (%(filename)s:%(lineno)d)"
+    ch_fmt = "\033[0;32m%(name)s\033[0m \033[0;37m|\033[0m %(levelname)s  " \
+             "\033[0;37m|\033[0m \033[0;35m%(filename)s\033[0m" \
+             "\033[0;37m:\033[0m" \
+             "\033[0;35m%(funcName)s\033[0m" \
+             "\033[0;37m:\033[0m" \
+             "\033[0;35m%(lineno)d\033[0m " \
+             "\033[0;37m-\033[0m %(message)s"
+    cf = ColoredFormatter(ch_fmt)
+    ch.setFormatter(cf)
+    log.addHandler(ch)
+
+    if file:
+        # Add file handler
+        fh = logging.FileHandler(file)
+        fh.setLevel(logging.DEBUG)
+        # fh_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        fh_fmt = '%(asctime)s | %(name)s | %(levelname)s  | %(filename)s:%(funcName)s:%(lineno)d - %(message)s'
+        ff = logging.Formatter(fh_fmt)
+        fh.setFormatter(ff)
+        log.addHandler(fh)
+
+    # Set log level
+    log.setLevel(logging.DEBUG)
+
+    return log
 
 
-class LogTest:
-    @staticmethod
-    def get_log():
-        logger3 = MyLogger("my_logger2")
-        logger3.info("这是我的第三个日志信息！This is my three log info.")
-        logger3.error("这是我的第三个日志信息！This is my three log info.")
-
-
-__file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "outputs", "logs",
-                           conf.get('log', 'file_name'))
-logger = MyLogger(conf.get('log', 'name'), level=conf.get('log', 'level'), file=__file_path)
+__log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs", "logs", "all.log")
+logger = HandleLog("my_logger", __log_file)
 
 if __name__ == '__main__':
-    logger1 = MyLogger("my_logger", file=__file_path)
-    logger1.info("这是我的第一个日志信息！This is my first log info.")
-    test()
-    LogTest.get_log()
+    # print("显示方式：")
+    # print("\033[0;37;40m\tHello World\033[0m")
+    #
+    # print("前景色：")
+    # print("\033[0;30m\tHello World\033[0m")
+    # print("\033[0;31m\tHello World\033[0m")
+    # print("\033[0;32m\tHello World\033[0m")
+    # print("\033[0;33m\tHello World\033[0m")
+    # print("\033[0;34m\tHello World\033[0m")
+    # print("\033[0;35m\tHello World\033[0m")
+    # print("\033[0;36m\tHello World\033[0m")
+    # print("\033[0;37m\tHello World\033[0m")
+    #
+    # print("背景色：")
+    # print("\033[0;40m\tHello World\033[0m")
+    # print("\033[0;41m\tHello World\033[0m")
+    # print("\033[0;42m\tHello World\033[0m")
+    # print("\033[0;43m\tHello World\033[0m")
+    # print("\033[0;44m\tHello World\033[0m")
+    # print("\033[0;45m\tHello World\033[0m")
+    # print("\033[0;46m\tHello World\033[0m")
+    # print("\033[0;47m\tHello World\033[0m")
+
+    log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs", "logs", "all.log")
+
+    # Log some stuff
+    log1 = __get_log("logger1", log_file)
+    log1.debug("app has started")
+    log1.info("Logging to 'app.log' in the script dir")
+    log1.warning("This is my last warning, take heed")
+    log1.error("This is an error")
+    log1.critical("He's dead, Jim")
+
+    log2 = HandleLog("logger2", log_file)
+    log2.debug("app has started")
+    log2.info("Logging to 'app.log' in the script dir")
+    log2.warning("This is my last warning, take heed")
+    log2.error("This is an error")
+    log2.critical("He's dead, Jim")

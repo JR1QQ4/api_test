@@ -1,0 +1,21 @@
+2021-05-22 01:05:37,713 - main - DEBUG - app has started
+2021-05-22 01:05:37,713 - main - INFO - Logging to 'app.log' in the script dir
+2021-05-22 01:05:37,714 - main - WARNING - This is my last warning, take heed
+2021-05-22 01:05:37,714 - main - ERROR - This is an error
+2021-05-22 01:05:37,714 - main - CRITICAL - He's dead, Jim
+2021-05-22 01:44:16,085 - main - DEBUG - app has started
+2021-05-22 01:44:16,085 - main - INFO - Logging to 'app.log' in the script dir
+2021-05-22 01:44:16,086 - main - WARNING - This is my last warning, take heed
+2021-05-22 01:44:16,086 - main - ERROR - This is an error
+2021-05-22 01:44:16,086 - main - CRITICAL - He's dead, Jim
+2021-05-22 01:44:45,174 - main - DEBUG - app has started
+2021-05-22 01:44:45,174 - main - INFO - Logging to 'app.log' in the script dir
+2021-05-22 01:44:45,174 - main - WARNING - This is my last warning, take heed
+2021-05-22 01:44:45,174 - main - ERROR - This is an error
+2021-05-22 01:44:45,174 - main - CRITICAL - He's dead, Jim
+2021-05-22 01:47:36,869 - main - DEBUG - app has started
+2021-05-22 01:47:36,869 - main - INFO - Logging to 'app.log' in the 
+ Logging to 'app.log' in the script dirLogging to 'app.log' in the script dir script dir
+2021-05-22 01:47:36,869 - main - WARNING - This is my last warning, take heed
+2021-05-22 01:47:36,869 - main - ERROR - This is an error
+2021-05-22 01:47:36,869 - main - CRITICAL - He's dead, Jim

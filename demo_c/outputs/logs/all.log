@@ -1,0 +1,140 @@
+2021-05-21 22:45:39,658 | INFO  | handle_log:<module>:108 - 这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:51:50,930 | [97mINFO  | handle_log:<module>:114 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:52:12,067 | [97mINFO  | handle_log:<module>:116 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:52:53,399 | [97mINFO  | handle_log:<module>:116 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:53:05,354 | [97mINFO  | handle_log:<module>:116 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:54:49,959 | [97mINFO  | handle_log:<module>:116 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:54:54,806 | [97mINFO  | handle_log:<module>:116 - [97m这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:55:46,147 | INFO  | handle_log:<module>:116 - 这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:56:18,249 | INFO  | handle_log:<module>:116 - 这是我的第一个日志信息！This is my first log info.
+2021-05-21 22:56:32,942 | INFO  | handle_log:<module>:115 - 这是我的第一个日志信息！This is my first log info.
+2021-05-22 12:33:40,274 | logger1 | DEBUG  | handle_log.py:<module>:151 - app has started
+2021-05-22 12:33:40,275 | logger1 | INFO  | handle_log.py:<module>:152 - Logging to 'app.log' in the script dir
+2021-05-22 12:33:40,275 | logger1 | WARNING  | handle_log.py:<module>:153 - This is my last warning, take heed
+2021-05-22 12:33:40,276 | logger1 | ERROR  | handle_log.py:<module>:154 - This is an error
+2021-05-22 12:33:40,276 | logger1 | CRITICAL  | handle_log.py:<module>:155 - He's dead, Jim
+2021-05-22 12:33:40,277 | logger2 | DEBUG  | handle_log.py:debug:74 - app has started
+2021-05-22 12:33:40,278 | logger2 | INFO  | handle_log.py:info:77 - Logging to 'app.log' in the script dir
+2021-05-22 12:33:40,279 | logger2 | WARNING  | handle_log.py:warning:80 - This is my last warning, take heed
+2021-05-22 12:33:40,280 | logger2 | ERROR  | handle_log.py:error:83 - This is an error
+2021-05-22 12:33:40,280 | logger2 | CRITICAL  | handle_log.py:critical:86 - He's dead, Jim
+2021-05-22 12:33:56,487 | logger1 | DEBUG  | handle_log.py:<module>:150 - app has started
+2021-05-22 12:33:56,487 | logger1 | INFO  | handle_log.py:<module>:151 - Logging to 'app.log' in the script dir
+2021-05-22 12:33:56,487 | logger1 | WARNING  | handle_log.py:<module>:152 - This is my last warning, take heed
+2021-05-22 12:33:56,487 | logger1 | ERROR  | handle_log.py:<module>:153 - This is an error
+2021-05-22 12:33:56,487 | logger1 | CRITICAL  | handle_log.py:<module>:154 - He's dead, Jim
+2021-05-22 12:33:56,488 | logger2 | DEBUG  | handle_log.py:debug:73 - app has started
+2021-05-22 12:33:56,488 | logger2 | INFO  | handle_log.py:info:76 - Logging to 'app.log' in the script dir
+2021-05-22 12:33:56,488 | logger2 | WARNING  | handle_log.py:warning:79 - This is my last warning, take heed
+2021-05-22 12:33:56,488 | logger2 | ERROR  | handle_log.py:error:82 - This is an error
+2021-05-22 12:33:56,488 | logger2 | CRITICAL  | handle_log.py:critical:85 - He's dead, Jim
+2021-05-22 12:36:50,797 | logger1 | DEBUG  | handle_log.py:<module>:150 - app has started
+2021-05-22 12:36:50,798 | logger1 | INFO  | handle_log.py:<module>:151 - Logging to 'app.log' in the script dir
+2021-05-22 12:36:50,798 | logger1 | WARNING  | handle_log.py:<module>:152 - This is my last warning, take heed
+2021-05-22 12:36:50,798 | logger1 | ERROR  | handle_log.py:<module>:153 - This is an error
+2021-05-22 12:36:50,798 | logger1 | CRITICAL  | handle_log.py:<module>:154 - He's dead, Jim
+2021-05-22 12:36:50,799 | logger2 | DEBUG  | handle_log.py:debug:73 - [0;37mapp has started[0m
+2021-05-22 12:36:50,799 | logger2 | INFO  | handle_log.py:info:76 - [0;36mLogging to 'app.log' in the script dir[0m
+2021-05-22 12:36:50,799 | logger2 | WARNING  | handle_log.py:warning:79 - [0;33mThis is my last warning, take heed[0m
+2021-05-22 12:36:50,799 | logger2 | ERROR  | handle_log.py:error:82 - [0;31mThis is an error[0m
+2021-05-22 12:36:50,799 | logger2 | CRITICAL  | handle_log.py:critical:85 - [0;41mHe's dead, Jim[0m
+2021-05-22 12:45:31,222 | logger1 | DEBUG  | handle_log.py:<module>:170 - app has started
+2021-05-22 12:45:31,223 | logger1 | INFO  | handle_log.py:<module>:171 - Logging to 'app.log' in the script dir
+2021-05-22 12:45:31,223 | logger1 | WARNING  | handle_log.py:<module>:172 - This is my last warning, take heed
+2021-05-22 12:45:31,223 | logger1 | ERROR  | handle_log.py:<module>:173 - This is an error
+2021-05-22 12:45:31,223 | logger1 | CRITICAL  | handle_log.py:<module>:174 - He's dead, Jim
+2021-05-22 12:45:31,224 | logger2 | DEBUG  | handle_log.py:debug:93 - [0;37mapp has started[0m
+2021-05-22 12:45:31,224 | logger2 | INFO  | handle_log.py:info:96 - [0;36mLogging to 'app.log' in the script dir[0m
+2021-05-22 12:45:31,224 | logger2 | WARNING  | handle_log.py:warning:99 - [0;33mThis is my last warning, take heed[0m
+2021-05-22 12:45:31,224 | logger2 | ERROR  | handle_log.py:error:102 - [0;31mThis is an error[0m
+2021-05-22 12:45:31,224 | logger2 | CRITICAL  | handle_log.py:critical:105 - [0;41mHe's dead, Jim[0m
+2021-05-22 12:46:39,535 | logger1 | DEBUG  | handle_log.py:<module>:170 - app has started
+2021-05-22 12:46:39,535 | logger1 | INFO  | handle_log.py:<module>:171 - Logging to 'app.log' in the script dir
+2021-05-22 12:46:39,536 | logger1 | WARNING  | handle_log.py:<module>:172 - This is my last warning, take heed
+2021-05-22 12:46:39,536 | logger1 | ERROR  | handle_log.py:<module>:173 - This is an error
+2021-05-22 12:46:39,536 | logger1 | CRITICAL  | handle_log.py:<module>:174 - He's dead, Jim
+2021-05-22 12:46:39,536 | logger2 | DEBUG  | handle_log.py:debug:93 - [0;37mapp has started[0m
+2021-05-22 12:46:39,536 | logger2 | INFO  | handle_log.py:info:96 - [0;36mLogging to 'app.log' in the script dir[0m
+2021-05-22 12:46:39,536 | logger2 | WARNING  | handle_log.py:warning:99 - [0;33mThis is my last warning, take heed[0m
+2021-05-22 12:46:39,537 | logger2 | ERROR  | handle_log.py:error:102 - [0;31mThis is an error[0m
+2021-05-22 12:46:39,537 | logger2 | CRITICAL  | handle_log.py:critical:105 - [0;41mHe's dead, Jim[0m
+2021-05-22 12:47:33,122 | logger1 | DEBUG  | handle_log.py:<module>:170 - app has started
+2021-05-22 12:47:33,122 | logger1 | INFO  | handle_log.py:<module>:171 - Logging to 'app.log' in the script dir
+2021-05-22 12:47:33,123 | logger1 | WARNING  | handle_log.py:<module>:172 - This is my last warning, take heed
+2021-05-22 12:47:33,123 | logger1 | ERROR  | handle_log.py:<module>:173 - This is an error
+2021-05-22 12:47:33,123 | logger1 | CRITICAL  | handle_log.py:<module>:174 - He's dead, Jim
+2021-05-22 12:47:33,123 | logger2 | DEBUG  | handle_log.py:debug:93 - [0;37mapp has started[0m
+2021-05-22 12:47:33,123 | logger2 | INFO  | handle_log.py:info:96 - [0;36mLogging to 'app.log' in the script dir[0m
+2021-05-22 12:47:33,123 | logger2 | WARNING  | handle_log.py:warning:99 - [0;33mThis is my last warning, take heed[0m
+2021-05-22 12:47:33,124 | logger2 | ERROR  | handle_log.py:error:102 - [0;31mThis is an error[0m
+2021-05-22 12:47:33,124 | logger2 | CRITICAL  | handle_log.py:critical:105 - [0;41mHe's dead, Jim[0m
+2021-05-22 12:47:46,662 | logger1 | DEBUG  | handle_log.py:<module>:170 - app has started
+2021-05-22 12:47:46,662 | logger1 | INFO  | handle_log.py:<module>:171 - Logging to 'app.log' in the script dir
+2021-05-22 12:47:46,663 | logger1 | WARNING  | handle_log.py:<module>:172 - This is my last warning, take heed
+2021-05-22 12:47:46,663 | logger1 | ERROR  | handle_log.py:<module>:173 - This is an error
+2021-05-22 12:47:46,663 | logger1 | CRITICAL  | handle_log.py:<module>:174 - He's dead, Jim
+2021-05-22 12:48:36,634 | logger1 | DEBUG  | handle_log.py:<module>:171 - app has started
+2021-05-22 12:48:36,634 | logger1 | INFO  | handle_log.py:<module>:172 - Logging to 'app.log' in the script dir
+2021-05-22 12:48:36,634 | logger1 | WARNING  | handle_log.py:<module>:173 - This is my last warning, take heed
+2021-05-22 12:48:36,635 | logger1 | ERROR  | handle_log.py:<module>:174 - This is an error
+2021-05-22 12:48:36,635 | logger1 | CRITICAL  | handle_log.py:<module>:175 - He's dead, Jim
+2021-05-22 12:48:59,088 | logger1 | DEBUG  | handle_log.py:<module>:170 - app has started
+2021-05-22 12:48:59,088 | logger1 | INFO  | handle_log.py:<module>:171 - Logging to 'app.log' in the script dir
+2021-05-22 12:48:59,088 | logger1 | WARNING  | handle_log.py:<module>:172 - This is my last warning, take heed
+2021-05-22 12:48:59,089 | logger1 | ERROR  | handle_log.py:<module>:173 - This is an error
+2021-05-22 12:48:59,089 | logger1 | CRITICAL  | handle_log.py:<module>:174 - He's dead, Jim
+2021-05-22 12:49:22,035 | logger1 | DEBUG  | handle_log.py:<module>:171 - app has started
+2021-05-22 12:49:22,035 | logger1 | INFO  | handle_log.py:<module>:172 - Logging to 'app.log' in the script dir
+2021-05-22 12:49:22,035 | logger1 | WARNING  | handle_log.py:<module>:173 - This is my last warning, take heed
+2021-05-22 12:49:22,036 | logger1 | ERROR  | handle_log.py:<module>:174 - This is an error
+2021-05-22 12:49:22,036 | logger1 | CRITICAL  | handle_log.py:<module>:175 - He's dead, Jim
+2021-05-22 12:50:33,691 | logger1 | DEBUG  | handle_log.py:<module>:171 - app has started
+2021-05-22 12:50:33,692 | logger1 | INFO  | handle_log.py:<module>:172 - Logging to 'app.log' in the script dir
+2021-05-22 12:50:33,692 | logger1 | WARNING  | handle_log.py:<module>:173 - This is my last warning, take heed
+2021-05-22 12:50:33,692 | logger1 | ERROR  | handle_log.py:<module>:174 - This is an error
+2021-05-22 12:50:33,692 | logger1 | CRITICAL  | handle_log.py:<module>:175 - He's dead, Jim
+2021-05-22 12:51:23,065 | logger1 | DEBUG  | handle_log.py:<module>:171 - app has started
+2021-05-22 12:51:23,065 | logger1 | INFO  | handle_log.py:<module>:172 - Logging to 'app.log' in the script dir
+2021-05-22 12:51:23,065 | logger1 | WARNING  | handle_log.py:<module>:173 - This is my last warning, take heed
+2021-05-22 12:51:23,066 | logger1 | ERROR  | handle_log.py:<module>:174 - This is an error
+2021-05-22 12:51:23,066 | logger1 | CRITICAL  | handle_log.py:<module>:175 - He's dead, Jim
+2021-05-22 12:51:38,838 | logger1 | DEBUG  | handle_log.py:<module>:171 - app has started
+2021-05-22 12:51:38,838 | logger1 | INFO  | handle_log.py:<module>:172 - Logging to 'app.log' in the script dir
+2021-05-22 12:51:38,838 | logger1 | WARNING  | handle_log.py:<module>:173 - This is my last warning, take heed
+2021-05-22 12:51:38,839 | logger1 | ERROR  | handle_log.py:<module>:174 - This is an error
+2021-05-22 12:51:38,839 | logger1 | CRITICAL  | handle_log.py:<module>:175 - He's dead, Jim
+2021-05-22 12:54:58,250 | logger1 | DEBUG  | handle_log.py:<module>:177 - app has started
+2021-05-22 12:54:58,250 | logger1 | INFO  | handle_log.py:<module>:178 - Logging to 'app.log' in the script dir
+2021-05-22 12:54:58,250 | logger1 | WARNING  | handle_log.py:<module>:179 - This is my last warning, take heed
+2021-05-22 12:54:58,250 | logger1 | ERROR  | handle_log.py:<module>:180 - This is an error
+2021-05-22 12:54:58,250 | logger1 | CRITICAL  | handle_log.py:<module>:181 - He's dead, Jim
+2021-05-22 12:56:50,244 | logger1 | DEBUG  | handle_log.py:<module>:175 - app has started
+2021-05-22 12:56:50,244 | logger1 | INFO  | handle_log.py:<module>:176 - Logging to 'app.log' in the script dir
+2021-05-22 12:56:50,244 | logger1 | WARNING  | handle_log.py:<module>:177 - This is my last warning, take heed
+2021-05-22 12:56:50,244 | logger1 | ERROR  | handle_log.py:<module>:178 - This is an error
+2021-05-22 12:56:50,244 | logger1 | CRITICAL  | handle_log.py:<module>:179 - He's dead, Jim
+2021-05-22 12:56:50,245 | logger2 | DEBUG  | handle_log.py:debug:99 - [0;37mapp has started[0m
+2021-05-22 12:56:50,245 | logger2 | INFO  | handle_log.py:info:102 - [0;36mLogging to 'app.log' in the script dir[0m
+2021-05-22 12:56:50,245 | logger2 | WARNING  | handle_log.py:warning:105 - [0;33mThis is my last warning, take heed[0m
+2021-05-22 12:56:50,246 | logger2 | ERROR  | handle_log.py:error:108 - [0;31mThis is an error[0m
+2021-05-22 12:56:50,246 | logger2 | CRITICAL  | handle_log.py:critical:111 - [0;41mHe's dead, Jim[0m
+2021-05-22 12:57:45,224 | logger1 | DEBUG  | handle_log.py:<module>:175 - app has started
+2021-05-22 12:57:45,224 | logger1 | INFO  | handle_log.py:<module>:176 - Logging to 'app.log' in the script dir
+2021-05-22 12:57:45,224 | logger1 | WARNING  | handle_log.py:<module>:177 - This is my last warning, take heed
+2021-05-22 12:57:45,225 | logger1 | ERROR  | handle_log.py:<module>:178 - This is an error
+2021-05-22 12:57:45,225 | logger1 | CRITICAL  | handle_log.py:<module>:179 - He's dead, Jim
+2021-05-22 12:57:45,225 | logger2 | DEBUG  | handle_log.py:debug:99 - app has started
+2021-05-22 12:57:45,226 | logger2 | INFO  | handle_log.py:info:102 - Logging to 'app.log' in the script dir
+2021-05-22 12:57:45,226 | logger2 | WARNING  | handle_log.py:warning:105 - This is my last warning, take heed
+2021-05-22 12:57:45,226 | logger2 | ERROR  | handle_log.py:error:108 - This is an error
+2021-05-22 12:57:45,226 | logger2 | CRITICAL  | handle_log.py:critical:111 - He's dead, Jim
+2021-05-22 12:57:50,775 | logger1 | DEBUG  | handle_log.py:<module>:175 - app has started
+2021-05-22 12:57:50,775 | logger1 | INFO  | handle_log.py:<module>:176 - Logging to 'app.log' in the script dir
+2021-05-22 12:57:50,775 | logger1 | WARNING  | handle_log.py:<module>:177 - This is my last warning, take heed
+2021-05-22 12:57:50,775 | logger1 | ERROR  | handle_log.py:<module>:178 - This is an error
+2021-05-22 12:57:50,775 | logger1 | CRITICAL  | handle_log.py:<module>:179 - He's dead, Jim
+2021-05-22 12:57:50,775 | logger2 | DEBUG  | handle_log.py:debug:99 - app has started
+2021-05-22 12:57:50,776 | logger2 | INFO  | handle_log.py:info:102 - Logging to 'app.log' in the script dir
+2021-05-22 12:57:50,776 | logger2 | WARNING  | handle_log.py:warning:105 - This is my last warning, take heed
+2021-05-22 12:57:50,776 | logger2 | ERROR  | handle_log.py:error:108 - This is an error
+2021-05-22 12:57:50,776 | logger2 | CRITICAL  | handle_log.py:critical:111 - He's dead, Jim
