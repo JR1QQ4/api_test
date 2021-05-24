@@ -14,7 +14,7 @@ from demo_b.util.generate_data import gen_str, gen_phone
 
 
 class TestUserManage:
-    wx = os.path.join(data_dir, "weixin.xlsx")
+    wx = os.path.join(data_dir, "weixin_api.xlsx")
     logger = HandleLog()
 
     @classmethod

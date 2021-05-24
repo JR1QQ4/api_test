@@ -73,7 +73,7 @@ if __name__ == '__main__':
     from demo_b.util.handle_path import data_dir
     import os
 
-    exl = os.path.join(data_dir, 'weixin.xlsx')
+    exl = os.path.join(data_dir, 'weixin_api.xlsx')
     # he = HandleExcel(exl, '读取成员')
     # print(he.get_title())
     # print(he.get_all_data())

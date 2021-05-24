@@ -5,6 +5,8 @@ from logging import Formatter
 import logging
 import pprint
 
+from demo_c.common.handle_conf import conf
+
 MAPPING = {
     'DEBUG': 37,  # white
     'INFO': 36,  # cyan
@@ -95,21 +97,6 @@ class HandleLog:
     def get_log(self):
         return self._log
 
-    def debug(self, msg):
-        self._log.debug(msg)
-
-    def info(self, msg):
-        self._log.info(msg)
-
-    def warning(self, msg):
-        self._log.warning(msg)
-
-    def error(self, msg):
-        self._log.error(msg)
-
-    def critical(self, msg):
-        self._log.critical(msg)
-
 
 def __get_log(name='my_logger', file=None):
     log = logging.getLogger(name)
@@ -144,8 +131,9 @@ def __get_log(name='my_logger', file=None):
     return log
 
 
-__log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), "outputs", "logs", "all.log")
-logger = HandleLog("my_logger", __log_file)
+__log_file = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                          "outputs", "logs", conf.get('log', 'file_name'))
+logger = HandleLog("my_logger", __log_file).get_log()
 
 if __name__ == '__main__':
     # print("显示方式：")

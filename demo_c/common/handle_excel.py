@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 import os
+from pprint import pprint
+
 from openpyxl import load_workbook
 from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell.cell import Cell
-
 
 # excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
 
@@ -72,9 +73,12 @@ from openpyxl.cell.cell import Cell
 # wb.save(excel_path)
 # 5. 关闭 workbook
 # wb.close()
+from demo_c.common.handle_path import sources_dir
+
 
 class HandleExcel:
     def __init__(self, file_path, sheet_name):
+        self.file_path = file_path
         self.wb: Workbook = load_workbook(file_path)
         self.sh: Worksheet = self.wb[sheet_name]
 
@@ -92,16 +96,31 @@ class HandleExcel:
             for cell in row:
                 values.append(cell.value)
             res = dict(zip(titles, values))
-            # res['Params'] = eval(res['Params'])
+            res['request_data'] = eval(str(res['request_data']))
+            res['expected'] = eval(str(res['expected']))
             all_cases.append(res)
         return all_cases
+
+    def write_in_excel(self, row, column, value=None):
+        self.sh.cell(row, column, value)
+        self.wb.save(self.file_path)
+        self.wb.close()
+        self.wb = load_workbook(self.file_path)
 
     def close(self):
         self.wb.close()
 
 
 if __name__ == '__main__':
-    excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
-    exl = HandleExcel(excel_path, "Cases")
-    print(exl.get_titles())
-    print(exl.get_all_cases())
+    # excel_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "excel_test.xlsx")
+    # exl = HandleExcel(excel_path, "Cases")
+    # print(exl.get_titles())
+    # print(exl.get_all_cases())
+
+    excel_path2 = os.path.join(sources_dir, "weixin_api.xlsx")
+    exl = HandleExcel(excel_path2, "创建成员")
+    expected_index = exl.get_titles().index('expected')
+    pprint(exl.get_all_cases(), indent=2)
+    exl.write_in_excel(2, expected_index + 1, "abc")
+    # excel_path2 = os.path.join(sources_dir, "weixin_api.xlsx")
+    pprint(exl.get_all_cases(), indent=2)

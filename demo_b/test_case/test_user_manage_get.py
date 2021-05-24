@@ -14,7 +14,7 @@ from demo_b.util.generate_data import gen_str, gen_phone
 
 
 class TestUserManage:
-    wx = os.path.join(data_dir, "weixin.xlsx")
+    wx = os.path.join(data_dir, "weixin_api.xlsx")
     logger = HandleLog()
 
     @classmethod
@@ -95,4 +95,4 @@ class TestUserManage:
 
 
 if __name__ == '__main__':
-    pytest.main(["-sv", "test_user_manage_get.py"])
+    pytest.main(["-sv", "user_manage_get.py"])

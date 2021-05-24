@@ -2,7 +2,9 @@
 # -*- coding:utf-8 -*-
 import logging
 import os.path
+import unittest
 
+from demo_c.common.myddt import ddt, data
 from handle_conf import conf
 
 from colorama import Fore
@@ -115,6 +117,7 @@ class LogTest:
 __file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "outputs", "logs",
                            conf.get('log', 'file_name'))
 logger = MyLogger(conf.get('log', 'name'), level=conf.get('log', 'level'), file=__file_path)
+
 
 if __name__ == '__main__':
     logger1 = MyLogger("my_logger", file=__file_path)
