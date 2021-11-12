@@ -3,4 +3,10 @@
 - 鉴权：鉴定是否有权限访问（判断有没有通行证）
 - HTTP请求是无状态的
 - Cookie与Session
+    - Cookie：是在HTTP协议下，服务器或脚本可以维护用户信息的一种方式，由Web服务器保存在用户浏览器（客户端）上的
+    小文本文件，它可以包含有关用户的信息，无论何时用户访问到服务器，都会带上该服务器的Cookie信息
+        - 一般Cookie都是有有效期的，Cookie只在浏览器上保存一段规定的时间，一旦超过规定的时间，就会被系统清除
+    - Session：将数据存储在服务器中，服务器会为每一个用户创建一条session，用户访问服务器的时候需要拿着session去
+    表面自己的身份
+        - Session的实现是基于Cookie，Session需要借助与Cookie来存储sessionID
 - Token
