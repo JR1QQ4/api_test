@@ -5,6 +5,7 @@ import random
 import unittest
 
 import requests
+from jsonpath import jsonpath
 from unittestreport import ddt, list_data
 
 from demo_d.common.handle_conf import conf
@@ -23,26 +24,39 @@ def assertDicIn(expected, res):
 
 @ddt
 class TestRegister(unittest.TestCase):
-    excel = HandleExcel(os.path.join(DATA_DIR, 'apicases.xlsx'), "register")
+    excel = HandleExcel(os.path.join(DATA_DIR, 'apicases.xlsx'), "recharge")
     cases = excel.read_data()
 
-    base_url = conf.get('env', 'base_url')
-    headers = eval(conf.get('env', 'headers'))
+    @classmethod
+    def setUpClass(cls) -> None:
+        url = conf.get('env', 'base_url')
+        params = {
+            "mobile_phone": conf.get("test_data", '"mobile'),
+            "pwd": conf.get("test_data", "password")
+        }
+        headers = eval(conf.get("env", "headers"))
+        response = requests.post(url=url, json=params, headers=headers)
+        res = response.json()
+        print(res)
+        token = jsonpath(res, "$..token")[0]
+        headers["Authorization"] = "Bearer " + token
+        
+        # 这两行属性相同，将 headers 设置为类属性
+        cls.headers = headers
+        # setattr(TestRegister, "headers", headers)
 
-    def random_mobile(self):
-        return str(random.randint(13300000000, 13399999999))
+        # 设置动态参数
+        cls.member_id = jsonpath(res, "$..id")[0]
+        print(cls.member_id)
 
     @list_data(cases)
     def test_register(self, item):
         # 第一步、准备用例数据
         # 1.接口地址
-        url = self.base_url + item['url']
+        url = conf.get("env", "base_url") + "/member/recharge"
         # 2.接口请求参数
-        # params = eval(item['data'])
-        phone = self.random_mobile()
-        item["data"] = item["data"].replace("#mobile#", phone)
-        params = eval(item["data"])
-
+        item['data'] = item['data'].replace("#member_id#", str(self.member_id))
+        params = eval(item['data'])
         # 3.请求头
         # 4.请求方法
         method = item['method'].lower()
