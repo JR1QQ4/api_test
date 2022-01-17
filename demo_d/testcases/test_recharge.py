@@ -23,13 +23,13 @@ def assertDicIn(expected, res):
 
 
 @ddt
-class TestRegister(unittest.TestCase):
+class TestRecharge(unittest.TestCase):
     excel = HandleExcel(os.path.join(DATA_DIR, 'apicases.xlsx'), "recharge")
     cases = excel.read_data()
 
     @classmethod
     def setUpClass(cls) -> None:
-        url = conf.get('env', 'base_url')
+        url = conf.get('env', 'base_url') + '/member/login'
         params = {
             "mobile_phone": conf.get("test_data", '"mobile'),
             "pwd": conf.get("test_data", "password")
@@ -50,10 +50,10 @@ class TestRegister(unittest.TestCase):
         print(cls.member_id)
 
     @list_data(cases)
-    def test_register(self, item):
+    def test_recharge(self, item):
         # 第一步、准备用例数据
         # 1.接口地址
-        url = conf.get("env", "base_url") + "/member/recharge"
+        url = conf.get("env", "base_url") + item['url']
         # 2.接口请求参数
         item['data'] = item['data'].replace("#member_id#", str(self.member_id))
         params = eval(item['data'])
