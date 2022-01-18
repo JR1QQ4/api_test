@@ -41,7 +41,7 @@ class HandleDB:
                                    # cursorclass=pymql.cursors.DictCursor  # 加了这个返回的是字典
                                    )
 
-    def find_onr(self, sql):
+    def find_one(self, sql):
         """查询一条数据"""
         with self.con as cur:
             cur.excute(sql)
